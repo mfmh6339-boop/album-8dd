@@ -5,238 +5,442 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Album Ảnh Đại Gia Đình 8D</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Arial, sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
     body {
       min-height: 100vh;
-      background: #161826;
-      color: #fff;
+      background: #181a28;
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-    .cover {
-      width: min(390px, 92vw);
-      background: #c3305c;
-      border-radius: 20px;
-      padding: 28px 22px;
-      text-align: center;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
-      border-left: 24px solid #37265c;
+
+    .cover-wrap {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
     }
-    .badge {
+
+    .book-cover {
+      width: 100%;
+      min-height: 460px;
+      background: #c3305c;
+      border-radius: 22px;
+      padding: 26px 24px 26px 46px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+    }
+
+    .book-cover::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 26px;
+      background: #37265c;
+      border-top-left-radius: 22px;
+      border-bottom-left-radius: 22px;
+    }
+
+    .cover-badge {
+      width: 100%;
       background: #fff8eb;
-      color: #41234b;
       border: 3px solid #ffc341;
       border-radius: 16px;
-      padding: 20px 14px;
-      margin-bottom: 22px;
+      padding: 22px 14px;
+      text-align: center;
+      margin-top: 10px;
     }
-    .badge h1 { font-size: 26px; margin-bottom: 6px; }
-    .badge p { font-size: 13px; color: #b94169; font-weight: 700; }
-    .btn {
+
+    .cover-badge h1 {
+      color: #41234b;
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 800;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .cover-badge p {
+      color: #b94169;
+      font-size: clamp(13px, 3vw, 15px);
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .open-btn {
       background: #ffbe2d;
       color: #411e32;
       border: none;
-      border-radius: 24px;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: 700;
+      border-radius: 28px;
+      padding: 14px 32px;
+      font-size: 17px;
+      font-weight: 800;
       cursor: pointer;
+      box-shadow: 0 6px 0 #d69412;
+      transition: transform 0.12s ease, background 0.15s ease;
     }
-    .btn:hover { background: #ffd241; }
 
-    .album {
+    .open-btn:hover {
+      background: #ffd241;
+    }
+
+    .open-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 3px 0 #d69412;
+    }
+
+    .album-box {
       display: none;
-      width: min(760px, 96vw);
+      width: min(860px, 96vw);
       background: #fffaf2;
       color: #2d2a3a;
-      border-radius: 18px;
       border: 4px solid #eb4b73;
+      border-radius: 20px;
       padding: 18px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
     }
-    .top {
+
+    .top-bar {
       display: flex;
-      gap: 10px;
       align-items: center;
+      gap: 12px;
       margin-bottom: 14px;
-      flex-wrap: wrap;
     }
-    .btn-back {
+
+    .back-btn {
       background: #b9323a;
-      color: #fff;
+      color: #ffffff;
       border: none;
       border-radius: 10px;
-      padding: 8px 14px;
-      font-size: 14px;
+      padding: 10px 16px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
+      flex-shrink: 0;
     }
-    .title-input {
+
+    .back-btn:hover {
+      background: #cf3b44;
+    }
+
+    .title-box {
       flex: 1;
-      min-width: 180px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 700;
-      padding: 8px 12px;
-      border-radius: 12px;
+      background: #ffffff;
       border: 2px solid #eb4b73;
-      background: #fff;
-      color: #2d2a3a;
-    }
-    .frame {
-      background: #fff;
       border-radius: 12px;
-      padding: 12px;
-      border: 2px solid #e6e0d6;
+      padding: 8px 14px;
+      text-align: center;
+      font-size: clamp(18px, 3.5vw, 24px);
+      font-weight: 800;
+      color: #2d2a3a;
+      outline: none;
+    }
+
+    .title-box:focus {
+      border-color: #c3305c;
+      box-shadow: 0 0 0 3px rgba(235, 75, 115, 0.18);
+    }
+
+    .media-stage {
+      background: #ffffff;
+      border: 2px solid #e5dfd5;
+      border-radius: 14px;
+      min-height: 320px;
+      max-height: 64vh;
+      padding: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 280px;
-      max-height: 62vh;
       overflow: hidden;
+      position: relative;
     }
-    .frame img,
-    .frame video {
+
+    .media-stage img,
+    .media-stage video {
       max-width: 100%;
       max-height: 58vh;
-      border-radius: 8px;
+      border-radius: 10px;
       object-fit: contain;
     }
-    .nav {
+
+    .missing-box {
+      text-align: center;
+      color: #5f6982;
+      font-weight: 700;
+      line-height: 1.5;
+      padding: 16px;
+    }
+
+    .missing-box code {
+      display: inline-block;
+      margin-top: 6px;
+      background: #f3efe8;
+      color: #b9323a;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      word-break: break-all;
+    }
+
+    .bottom-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       margin-top: 14px;
-      gap: 10px;
     }
-    .pill {
+
+    .nav-btn {
+      background: #ffbe2d;
+      color: #411e32;
+      border: none;
+      border-radius: 18px;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .nav-btn:hover {
+      background: #ffd241;
+    }
+
+    .page-badge {
       background: #eb4b73;
-      color: #fff;
-      padding: 7px 16px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 14px;
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 560px) {
+      .bottom-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nav-btn {
+        padding: 9px 16px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
-  <section id="homeView" class="cover">
-    <div class="badge">
-      <h1>MY ALBUM</h1>
-      <p>57 TRANG KỶ NIỆM Đại gia đình 8D</p>
+  <section id="coverScreen" class="cover-wrap">
+    <div class="book-cover">
+      <div class="cover-badge">
+        <h1>MY ALBUM</h1>
+        <p>57 TRANG KỶ NIỆM Đại gia đình 8D</p>
+      </div>
+      <button id="openAlbumBtn" class="open-btn">BẤM ĐỂ MỞ</button>
     </div>
-    <button class="btn" id="openBtn">BẤM ĐỂ MỞ</button>
   </section>
 
-  <section id="albumView" class="album">
-    <div class="top">
-      <button class="btn-back" id="backBtn">Quay lại</button>
-      <input id="titleInput" class="title-input" maxlength="40" />
+  <section id="albumScreen" class="album-box">
+    <div class="top-bar">
+      <button id="backBtn" class="back-btn">Quay lại</button>
+      <input
+        id="titleInput"
+        class="title-box"
+        type="text"
+        maxlength="60"
+        aria-label="Tiêu đề trang"
+      />
     </div>
-    <div class="frame" id="frame"></div>
-    <div class="nav">
-      <button class="btn" id="prevBtn">Trang trước</button>
-      <span class="pill" id="pill">Trang 1 / 57</span>
-      <button class="btn" id="nextBtn">Trang sau</button>
+
+    <div id="mediaStage" class="media-stage"></div>
+
+    <div class="bottom-bar">
+      <button id="prevBtn" class="nav-btn">Trang trước</button>
+      <span id="pageCounter" class="page-badge">Trang 1 / 57</span>
+      <button id="nextBtn" class="nav-btn">Trang sau</button>
     </div>
   </section>
 
   <script>
-    const TOTAL_PAGES = 57;
-
-    // Tiêu đề tùy chỉnh (sửa trực tiếp trên web cũng được)
-    const TITLES = {
-      1: "Hai ông điên",
-      2: "Áo đỏ thì sao ?",
-      37: "Biển đại gia đình 8D",
-      57: "Hết rồi !"
+    const ALBUM_DATA = {
+      1: { image: "1794055552491_323848948244778445_g1291880486542543710_5580efaf76d667a12d9c6a1470f156d8.jpg", title: "Hai ông điên" },
+      2: { image: "1794055552537_323848948244778445_g1291880486542543710_078e9a48d5c4a45c2ddfc8cf14f233e3.jpg", title: "Áo đỏ thì sao ?" },
+      3: { image: "1794055552570_323848948244778445_g1291880486542543710_2a9e6b7464e84d7cb97917cc62da553f.jpg", title: "Hí hí" },
+      4: { image: "1794055552709_323848948244778445_g1291880486542543710_04695379d30627fe7037b95f532f5ec7.jpg", title: "Chụp cái gì" },
+      5: { image: "1794055552740_323848948244778445_g1291880486542543710_e0a0f52b870abebdc420f9f50f7e27a1.jpg", title: "Đẹp zai ko ?" },
+      6: { image: "1794055552785_323848948244778445_g1291880486542543710_4b1cf5ff57057f1019c9759d71a94eb1.jpg", title: "Cười lên nào" },
+      7: { image: "1794055552864_323848948244778445_g1291880486542543710.mp4", title: "Không có lần 2 đâu " },
+      8: { image: "1794055552948_323848948244778445_g1291880486542543710_52392dc10399842434f970f378b04277.jpg", title: "..." },
+      9: { image: "1794056141008_323848948244778445_g1291880486542543710_3bdaf4b53819ff1cde43c40dd1aa023e.jpg", title: "Chị mày nói còn ko nghe à !" },
+      10: { image: "1794056141049_323848948244778445_g1291880486542543710_ee92db72574b141ffb1e8b52912c7bfb.jpg", title: "Bướng à !" },
+      11: { image: "1794056141086_323848948244778445_g1291880486542543710_3846e24fabb34bbe72f255224db645f7.jpg", title: "Đẹp gái không ?" },
+      12: { image: "1794056141122_323848948244778445_g1291880486542543710_2eb383c98d9c839b16ef4614967becda.jpg", title: "Idol và Fan" },
+      13: { image: "1794056141216_323848948244778445_g1291880486542543710_6f01bb772080930ad0c0cf15483d67b4.jpg", title: "Răng trắng nhờ" },
+      14: { image: "1794064313834_323848948244778445_g1291880486542543710.mp4", title: "Thề luôn" },
+      15: { image: "1794064391048_323848948244778445_g1291880486542543710_35876327f5721b40bdd76f7eda224ad0.jpg", title: "4 anh siêu nhân !" },
+      16: { image: "1794067996167_323848948244778445_g1291880486542543710_a744d0ad62e19c67bfdb2d6c5c0cf527.jpg", title: "mic mic" },
+      17: { image: "1794626163759_8813392439699030780_g1291880486542543710_81c61bf575f7bec8bd317af691e088be.jpg", title: "Mời các bạn" },
+      18: { image: "1794626163815_8813392439699030780_g1291880486542543710_4c39cb52508861fd32774f607f60189d.jpg", title: "Lẩu lẩu lẩu" },
+      19: { image: "1794626163834_8813392439699030780_g1291880486542543710_9859f66f853b1da0d453ca0570801b28.jpg", title: "Ăn đi" },
+      20: { image: "1794626163860_8813392439699030780_g1291880486542543710_2490ed82abf5a27a60edfe89184826e4.jpg", title: "Next !" },
+      21: { image: "1794626163860_8813392439699030780_g1291880486542543710_2490ed82abf5a27a60edfe89184826e4.jpg", title: "More !" },
+      22: { image: "1794626163870_8813392439699030780_g1291880486542543710_d7a5c265e06277eff0af5c0da01ce6bd.jpg", title: "No cap" },
+      23: { image: "1794627736569_8813392439699030780_g1291880486542543710_1432cb6bc90bb65c4dceb222ce1d074b.jpg", title: "..." },
+      24: { image: "1794627736593_8813392439699030780_g1291880486542543710.mp4", title: "Nghe chị tao phát biểu !" },
+      25: { image: "1794629825729_8813392439699030780_g1291880486542543710.mp4", title: "Hát hay thế !" },
+      26: { image: "1794629825746_8813392439699030780_g1291880486542543710.mp4", title: "Ai quay mờ thế ?" },
+      27: { image: "1794629825760_8813392439699030780_g1291880486542543710.mp4", title: "More !" },
+      28: { image: "1794630392650_8813392439699030780_g1291880486542543710.mp4", title: "Vân ơi là vân !" },
+      29: { image: "1794630392655_8813392439699030780_g1291880486542543710.mp4", title: "thêm " },
+      30: { image: "1794630435303_8813392439699030780_g1291880486542543710.mp4", title: "thêm " },
+      31: { image: "1794630435307_8813392439699030780_g1291880486542543710.mp4", title: "thêm " },
+      32: { image: "1794630435310_8813392439699030780_g1291880486542543710.mp4", title: "thêm " },
+      33: { image: "1794651705419_8813392439699030780_g1291880486542543710_3b462344739bf903bb4891bad5260c32.jpg", title: "UNO" },
+      34: { image: "1794651705475_8813392439699030780_g1291880486542543710_43336aa658b0232841f2136ca93d20b9.jpg", title: "Chàng gái lộng lẫy !" },
+      35: { image: "1794651705494_8813392439699030780_g1291880486542543710_1cbebbeae0c8291a5e0fa7cb308f69da.jpg", title: "Thử thách xi-măng" },
+      36: { image: "1794651705514_8813392439699030780_g1291880486542543710_d0c1d7668cf5a925a80443fa81480641.jpg", title: "Chàng gái 2" },
+      37: { image: "1794652254208_8813392439699030780_g1291880486542543710_41060f194cba28ef20d758514b68f76b.jpg", title: "Biển đại gia đình 8D" },
+      38: { image: "1794828236696_8813392439699030780_g1291880486542543710_6240f67457c6a2b9cf46410b1a29b024.jpg", title: "Dân tộc nhưng vẫn chăm chỉ" },
+      39: { image: "1794828247678_8813392439699030780_g1291880486542543710_5570121b5f55ca276ae90dea7ac59463.jpg", title: "Thằng áo xanh đẹp zai vaiz !" },
+      40: { image: "1794828247713_8813392439699030780_g1291880486542543710_857724fa40fdbd8c36cad9616d9ade1a.jpg", title: "Nữa" },
+      41: { image: "1794828249849_8813392439699030780_g1291880486542543710_dc4ffafa39034ffa8f1685a26d40a219.jpg", title: "Những bát bún" },
+      42: { image: "1794828802676_8813392439699030780_g1291880486542543710_c210656335734871bebf9cbcf1ec1a3b.jpg", title: "Sao đỏ và Lớp trưởng" },
+      43: { image: "1794828802688_8813392439699030780_g1291880486542543710_cfaeb226aa3b828d54f918c8dca84edf.jpg", title: "Cô tiên hiện ra" },
+      44: { image: "1794828802698_8813392439699030780_g1291880486542543710_31ea74c89217887ac324fab0c7218462.jpg", title: "Vô DUYÊN !" },
+      45: { image: "1794829078941_6390427003562590236_g1291880486542543710_ceb2640fab69f87202846b15bae8b59c.jpg", title: "Mèo trưởng" },
+      46: { image: "1794829078994_6390427003562590236_g1291880486542543710_3c0f39603bc82b1040dc28198a1f3afe.jpg", title: "..." },
+      47: { image: "1794829079011_6390427003562590236_g1291880486542543710_45496acd03d010bdad5d8bbf2caffe7a.jpg", title: "..." },
+      48: { image: "1794829079028_6390427003562590236_g1291880486542543710_8a2265bf5142c3fb4311c74160dd653f.jpg", title: "Mèo sao" },
+      49: { image: "1794829079045_6390427003562590236_g1291880486542543710_5820a538eb1050edc430233b5ab4a039.jpg", title: "Đu trend thôi !" },
+      50: { image: "1794829079062_6390427003562590236_g1291880486542543710_ceccfa05ef032cd25927b5324b32c949.jpg", title: "." },
+      51: { image: "1794829079078_6390427003562590236_g1291880486542543710_86a5a0d9d705d51aa9ea1578f0f8e3b6.jpg", title: "." },
+      52: { image: "1794829079112_6390427003562590236_g1291880486542543710_d0d0684d7af32fead08fb232516e823d.jpg", title: "." },
+      53: { image: "1794829079129_6390427003562590236_g1291880486542543710_67c62fa33f90f86c1c3211fc6420ee6a.jpg", title: "." },
+      54: { image: "1794829079146_6390427003562590236_g1291880486542543710_18811dd0494c91980db2a0881e789ca4.jpg", title: "3 ông tướng" },
+      55: { image: "1794830380225_6390427003562590236_g1291880486542543710_5820a538eb1050edc430233b5ab4a039.jpg", title: "..." },
+      56: { image: "1794832981500_6652188926997035746_g1291880486542543710_418b80d18879f56279e06efecf421dc5.jpg", title: "Đến con trai !" },
+      57: { image: "1794832981559_6652188926997035746_g1291880486542543710_dc4ff74d8d2cae61a1f8921464bd61c2.jpg", title: "Hết rồi !" }
     };
 
-    // Nếu trang nào dùng tên file riêng (như file dài hoặc .mp4), điền vào đây:
-    // Ví dụ: 49: "1794829079045_6390427003562590236_g1291880486542543710_5820a538eb1050edc430233b5ab4a039.jpg"
-    const CUSTOM_FILES = {};
+    const pageNumbers = Object.keys(ALBUM_DATA).map(Number).sort((a, b) => a - b);
+    const totalPages = pageNumbers.length;
+    let currentIndex = 0;
 
-    const pages = Array.from({ length: TOTAL_PAGES }, (_, i) => {
-      const n = i + 1;
-      const candidates = CUSTOM_FILES[n]
-        ? [CUSTOM_FILES[n]]
-        : [`anh${n}.jpg`, `anh${n}.png`, `anh${n}.jpeg`, `anh${n}.mp4`, `video${n}.mp4`];
-      return {
-        title: TITLES[n] || `Trang ${n}`,
-        candidates
-      };
-    });
-
-    let idx = 0;
-    const homeView = document.getElementById("homeView");
-    const albumView = document.getElementById("albumView");
-    const frame = document.getElementById("frame");
+    const coverScreen = document.getElementById("coverScreen");
+    const albumScreen = document.getElementById("albumScreen");
     const titleInput = document.getElementById("titleInput");
-    const pill = document.getElementById("pill");
+    const mediaStage = document.getElementById("mediaStage");
+    const pageCounter = document.getElementById("pageCounter");
 
-    function tryLoad(candidates, pos) {
+    function pauseCurrentVideo() {
+      const vid = mediaStage.querySelector("video");
+      if (vid) vid.pause();
+    }
+
+    function buildCandidates(filename) {
+      return [filename, `media/${filename}`];
+    }
+
+    function encodeRelPath(relPath) {
+      return "./" + relPath.split("/").map(encodeURIComponent).join("/");
+    }
+
+    function loadMedia(pageNum, item, candidates, pos) {
       if (pos >= candidates.length) {
-        frame.innerHTML = `<p style="color:#5f6982;font-weight:700;">Chưa khớp file cho trang này (kiểm tra tên file trên repo)</p>`;
+        mediaStage.innerHTML = `
+          <div class="missing-box">
+            Chưa tìm thấy file cho Trang ${pageNum}
+            <code>${item.image}</code>
+          </div>
+        `;
         return;
       }
-      const file = candidates[pos];
-      const url = `./${encodeURIComponent(file)}`;
-      const isVid = /\.(mp4|webm|mov)$/i.test(file);
 
-      frame.innerHTML = "";
-      if (isVid) {
-        const vid = document.createElement("video");
-        vid.src = url;
-        vid.controls = true;
-        vid.playsInline = true;
-        vid.loop = true;
-        vid.onerror = () => tryLoad(candidates, pos + 1);
-        frame.appendChild(vid);
+      const rawPath = candidates[pos];
+      const url = encodeRelPath(rawPath);
+      const isVideo = /\.(mp4|webm|mov|m4v)$/i.test(rawPath);
+
+      mediaStage.innerHTML = "";
+
+      if (isVideo) {
+        const video = document.createElement("video");
+        video.src = url;
+        video.controls = true;
+        video.playsInline = true;
+        video.loop = true;
+        video.onerror = () => loadMedia(pageNum, item, candidates, pos + 1);
+        mediaStage.appendChild(video);
       } else {
         const img = document.createElement("img");
         img.src = url;
-        img.alt = pages[idx].title;
-        img.onerror = () => tryLoad(candidates, pos + 1);
-        frame.appendChild(img);
+        img.alt = item.title;
+        img.onerror = () => loadMedia(pageNum, item, candidates, pos + 1);
+        mediaStage.appendChild(img);
       }
     }
 
-    function render() {
-      const p = pages[idx];
-      titleInput.value = p.title;
-      pill.textContent = `Trang ${idx + 1} / ${TOTAL_PAGES}`;
-      tryLoad(p.candidates, 0);
+    function renderPage() {
+      pauseCurrentVideo();
+      const pageNum = pageNumbers[currentIndex];
+      const item = ALBUM_DATA[pageNum];
+      titleInput.value = item.title;
+      pageCounter.textContent = `Trang ${pageNum} / ${totalPages}`;
+      loadMedia(pageNum, item, buildCandidates(item.image), 0);
     }
 
-    document.getElementById("openBtn").onclick = () => {
-      homeView.style.display = "none";
-      albumView.style.display = "block";
-      idx = 0;
-      render();
-    };
+    document.getElementById("openAlbumBtn").addEventListener("click", () => {
+      coverScreen.style.display = "none";
+      albumScreen.style.display = "block";
+      currentIndex = 0;
+      renderPage();
+    });
 
-    document.getElementById("backBtn").onclick = () => {
-      const v = frame.querySelector("video");
-      if (v) v.pause();
-      albumView.style.display = "none";
-      homeView.style.display = "block";
-    };
+    document.getElementById("backBtn").addEventListener("click", () => {
+      pauseCurrentVideo();
+      albumScreen.style.display = "none";
+      coverScreen.style.display = "flex";
+    });
 
-    document.getElementById("prevBtn").onclick = () => {
-      idx = (idx - 1 + TOTAL_PAGES) % TOTAL_PAGES;
-      render();
-    };
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+      renderPage();
+    });
 
-    document.getElementById("nextBtn").onclick = () => {
-      idx = (idx + 1) % TOTAL_PAGES;
-      render();
-    };
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % totalPages;
+      renderPage();
+    });
 
-    titleInput.oninput = (e) => {
-      pages[idx].title = e.target.value;
-    };
+    titleInput.addEventListener("input", (event) => {
+      const pageNum = pageNumbers[currentIndex];
+      ALBUM_DATA[pageNum].title = event.target.value;
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (albumScreen.style.display !== "block" || document.activeElement === titleInput) {
+        return;
+      }
+      if (event.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+        renderPage();
+      } else if (event.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % totalPages;
+        renderPage();
+      }
+    });
   </script>
 </body>
 </html>
