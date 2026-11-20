@@ -15,9 +15,9 @@
     body {
       min-height: 100vh;
       background:
-        radial-gradient(circle at 15% 15%, rgba(235, 75, 115, 0.22), transparent 42%),
-        radial-gradient(circle at 85% 85%, rgba(255, 190, 45, 0.16), transparent 45%),
-        linear-gradient(160deg, #141624 0%, #1d2036 55%, #151726 100%);
+        radial-gradient(circle at 20% 20%, rgba(255, 77, 129, 0.25), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.18), transparent 42%),
+        #0f111a;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -25,41 +25,56 @@
       padding: 18px;
     }
 
-    /* Trang bìa */
+    /* Bìa album kiểu sổ kỷ niệm có lưới ảnh nền */
     .cover-wrap {
       width: 100%;
-      max-width: 440px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 0.35s ease;
+      max-width: 450px;
+      animation: fadeIn 0.3s ease;
     }
 
     .book-cover {
       width: 100%;
-      min-height: 470px;
-      background: linear-gradient(155deg, #d63867 0%, #b52652 100%);
-      border-radius: 24px;
-      padding: 28px 24px 28px 48px;
+      min-height: 490px;
+      background: linear-gradient(160deg, #e13b6e 0%, #9b1d49 100%);
+      border-radius: 26px;
+      padding: 24px 22px 26px 48px;
       position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       box-shadow:
-        0 22px 45px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+        0 24px 50px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 255, 255, 0.14) inset;
     }
 
-    .book-cover:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 26px 52px rgba(0, 0, 0, 0.62),
-        0 0 28px rgba(235, 75, 115, 0.28);
+    /* Lưới ảnh trang trí ở giữa bìa */
+    .cover-collage {
+      position: absolute;
+      inset: 145px 18px 82px 44px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 8px;
+      opacity: 0.42;
+      pointer-events: none;
     }
 
+    .cover-collage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      transform: rotate(-1.5deg);
+    }
+
+    .cover-collage img:nth-child(even) {
+      transform: rotate(2deg);
+    }
+
+    /* Gáy sách bên trái */
     .book-cover::before {
       content: "";
       position: absolute;
@@ -67,20 +82,18 @@
       left: 0;
       bottom: 0;
       width: 28px;
-      background: linear-gradient(180deg, #432f70 0%, #2b1d4a 100%);
-      border-top-left-radius: 24px;
-      border-bottom-left-radius: 24px;
-      box-shadow: inset -2px 0 6px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(180deg, #3b2667 0%, #21143d 100%);
+      border-right: 2px solid rgba(255, 210, 82, 0.35);
+      z-index: 2;
     }
 
-    .book-cover::after {
-      content: "✦ 8D ✦";
+    .spine-tag {
       position: absolute;
       left: 0;
       top: 50%;
       transform: translateY(-50%) rotate(-90deg);
-      width: 28px;
-      color: rgba(255, 224, 130, 0.8);
+      z-index: 3;
+      color: #ffd454;
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 2px;
@@ -88,161 +101,175 @@
       pointer-events: none;
     }
 
-    .cover-badge {
+    .cover-header {
+      position: relative;
+      z-index: 2;
       width: 100%;
-      background: linear-gradient(180deg, #fffdf7 0%, #fff4df 100%);
-      border: 3px solid #ffc341;
-      border-radius: 18px;
-      padding: 24px 16px;
+      background: rgba(255, 250, 240, 0.96);
+      border: 3px solid #ffc93c;
+      border-radius: 20px;
+      padding: 18px 16px;
       text-align: center;
-      margin-top: 8px;
-      box-shadow: 0 8px 20px rgba(65, 30, 50, 0.22);
+      box-shadow: 0 12px 24px rgba(25, 8, 22, 0.35);
     }
 
-    .cover-badge h1 {
-      color: #3d1e48;
-      font-size: clamp(26px, 5.2vw, 33px);
+    .mini-chip {
+      display: inline-block;
+      background: #ffe5ec;
+      color: #b82956;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .cover-header h1 {
+      color: #361842;
+      font-size: clamp(26px, 5.5vw, 34px);
       font-weight: 900;
       letter-spacing: 1.5px;
-      line-height: 1.15;
     }
 
-    .cover-badge p {
-      color: #b93b65;
-      font-size: clamp(13px, 3.1vw, 15px);
+    .cover-header p {
+      color: #b83260;
+      font-size: 14px;
       font-weight: 700;
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     .open-btn {
-      background: linear-gradient(180deg, #ffd047 0%, #ffb41c 100%);
-      color: #3d1a2e;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, #ffe066 0%, #ffaa00 100%);
+      color: #381529;
       border: none;
       border-radius: 999px;
-      padding: 14px 34px;
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+      padding: 14px 36px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.6px;
       cursor: pointer;
-      box-shadow: 0 6px 0 #c98608, 0 12px 24px rgba(0, 0, 0, 0.3);
-      transition: transform 0.14s ease, filter 0.15s ease;
+      box-shadow: 0 6px 0 #b87400, 0 14px 26px rgba(0, 0, 0, 0.4);
+      transition: transform 0.12s ease, filter 0.15s ease;
     }
 
     .open-btn:hover {
-      filter: brightness(1.05);
-      transform: translateY(-1px);
+      filter: brightness(1.06);
+      transform: translateY(-2px);
     }
 
     .open-btn:active {
       transform: translateY(3px);
-      box-shadow: 0 3px 0 #c98608;
+      box-shadow: 0 3px 0 #b87400;
     }
 
-    /* Khung album bên trong */
+    /* Giao diện bên trong album */
     .album-box {
       display: none;
-      width: min(880px, 96vw);
-      background:
-        radial-gradient(rgba(235, 75, 115, 0.08) 1px, transparent 1px),
-        #fffaf2;
-      background-size: 18px 18px;
-      color: #2d2a3a;
-      border: 4px solid #eb4b73;
-      border-radius: 22px;
-      padding: 20px;
-      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
+      width: min(900px, 96vw);
+      background: #171a29;
+      color: #f8fafc;
+      border: 2px solid rgba(255, 77, 129, 0.55);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.65);
       animation: fadeIn 0.25s ease;
     }
 
     .top-bar {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 14px;
+      flex-wrap: wrap;
     }
 
     .back-btn {
-      background: linear-gradient(180deg, #cb3a43 0%, #a82830 100%);
-      color: #ffffff;
+      background: #ef4444;
+      color: #fff;
       border: none;
       border-radius: 12px;
-      padding: 10px 16px;
-      font-size: 15px;
-      font-weight: 700;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 800;
       cursor: pointer;
-      flex-shrink: 0;
-      box-shadow: 0 3px 0 #7c1b21;
-      transition: transform 0.12s ease, filter 0.15s ease;
+      transition: background 0.15s ease;
     }
 
     .back-btn:hover {
-      filter: brightness(1.06);
-    }
-
-    .back-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #7c1b21;
+      background: #dc2626;
     }
 
     .title-box {
       flex: 1;
-      background: #ffffff;
-      border: 2px solid #eb4b73;
-      border-radius: 14px;
+      min-width: 180px;
+      background: #22273d;
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
       padding: 9px 14px;
       text-align: center;
-      font-size: clamp(18px, 3.5vw, 24px);
+      font-size: clamp(17px, 3vw, 22px);
       font-weight: 800;
-      color: #2d2a3a;
+      color: #ffffff;
       outline: none;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .title-box:focus {
-      border-color: #c3305c;
-      box-shadow: 0 0 0 4px rgba(235, 75, 115, 0.18);
+      border-color: #ff4d81;
+      box-shadow: 0 0 0 3px rgba(255, 77, 129, 0.22);
+    }
+
+    .jump-select {
+      background: #22273d;
+      color: #ffd454;
+      border: 1.5px solid rgba(255, 212, 84, 0.45);
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      outline: none;
     }
 
     .media-stage {
-      background: #ffffff;
-      border: 2px solid #eadfd2;
-      border-radius: 16px;
-      min-height: 330px;
-      max-height: 64vh;
+      background: #0d0f18;
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      min-height: 340px;
+      max-height: 65vh;
       padding: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 2px 8px rgba(45, 42, 58, 0.04);
     }
 
     .media-stage img,
     .media-stage video {
       max-width: 100%;
-      max-height: 58vh;
+      max-height: 59vh;
       border-radius: 12px;
       object-fit: contain;
-      box-shadow: 0 8px 22px rgba(24, 26, 40, 0.14);
-      animation: popIn 0.22s ease;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     }
 
     .missing-box {
       text-align: center;
-      color: #5f6982;
+      color: #94a3b8;
       font-weight: 700;
-      line-height: 1.55;
+      line-height: 1.6;
       padding: 16px;
     }
 
     .missing-box code {
       display: inline-block;
       margin-top: 8px;
-      background: #fff0f4;
-      border: 1px solid #f7c5d3;
-      color: #b9323a;
+      background: #1e2438;
+      color: #fda4af;
+      border: 1px solid rgba(251, 113, 133, 0.3);
       padding: 5px 10px;
       border-radius: 8px;
       font-size: 12px;
@@ -252,7 +279,7 @@
     .progress-track {
       width: 100%;
       height: 6px;
-      background: #f2e4d8;
+      background: #252b42;
       border-radius: 999px;
       overflow: hidden;
       margin-top: 14px;
@@ -261,8 +288,7 @@
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #eb4b73 0%, #ffbe2d 100%);
-      border-radius: 999px;
+      background: linear-gradient(90deg, #ff4d81 0%, #ffbe2d 100%);
       transition: width 0.25s ease;
     }
 
@@ -272,73 +298,52 @@
       justify-content: space-between;
       gap: 12px;
       margin-top: 12px;
+      flex-wrap: wrap;
     }
 
     .nav-btn {
-      background: linear-gradient(180deg, #ffd047 0%, #ffb41c 100%);
-      color: #3d1a2e;
+      background: linear-gradient(180deg, #ffd454 0%, #ffaa00 100%);
+      color: #2b1422;
       border: none;
       border-radius: 999px;
       padding: 10px 22px;
-      font-size: 15px;
-      font-weight: 800;
+      font-size: 14px;
+      font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 3px 0 #c98608;
-      transition: transform 0.12s ease, filter 0.15s ease;
     }
 
     .nav-btn:hover {
-      filter: brightness(1.05);
-    }
-
-    .nav-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #c98608;
+      filter: brightness(1.06);
     }
 
     .page-badge {
-      background: linear-gradient(180deg, #f2547c 0%, #d83b63 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, #ff4d81 0%, #c82356 100%);
+      color: #fff;
       border-radius: 999px;
       padding: 8px 18px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      white-space: nowrap;
-      box-shadow: 0 3px 10px rgba(216, 59, 99, 0.28);
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    @keyframes popIn {
-      from { opacity: 0.2; transform: scale(0.985); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @media (max-width: 560px) {
-      .album-box {
-        padding: 14px;
-      }
-      .bottom-bar {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .nav-btn {
-        padding: 9px 18px;
-        font-size: 14px;
-      }
-    }
   </style>
 </head>
 <body>
   <section id="coverScreen" class="cover-wrap">
     <div class="book-cover">
-      <div class="cover-badge">
+      <span class="spine-tag">8D • KỶ NIỆM</span>
+
+      <div id="coverCollage" class="cover-collage" aria-hidden="true"></div>
+
+      <div class="cover-header">
+        <span class="mini-chip">Album Class 8D</span>
         <h1>MY ALBUM</h1>
         <p>57 TRANG KỶ NIỆM Đại gia đình 8D</p>
       </div>
+
       <button id="openAlbumBtn" class="open-btn">BẤM ĐỂ MỞ</button>
     </div>
   </section>
@@ -353,6 +358,7 @@
         maxlength="60"
         aria-label="Tiêu đề trang"
       />
+      <select id="jumpSelect" class="jump-select" aria-label="Chọn nhanh trang"></select>
     </div>
 
     <div id="mediaStage" class="media-stage"></div>
@@ -435,26 +441,46 @@
 
     const coverScreen = document.getElementById("coverScreen");
     const albumScreen = document.getElementById("albumScreen");
+    const coverCollage = document.getElementById("coverCollage");
     const titleInput = document.getElementById("titleInput");
+    const jumpSelect = document.getElementById("jumpSelect");
     const mediaStage = document.getElementById("mediaStage");
     const pageCounter = document.getElementById("pageCounter");
     const progressFill = document.getElementById("progressFill");
-
-    function pauseCurrentVideo() {
-      const vid = mediaStage.querySelector("video");
-      if (vid) vid.pause();
-    }
-
-    function buildCandidates(filename) {
-      return [filename, `media/${filename}`];
-    }
 
     function encodeRelPath(relPath) {
       return "./" + relPath.split("/").map(encodeURIComponent).join("/");
     }
 
-    function updateProgress(pageNum) {
-      progressFill.style.width = `${(pageNum / totalPages) * 100}%`;
+    function initCoverCollage() {
+      const sampleImages = pageNumbers
+        .map((n) => ALBUM_DATA[n].image)
+        .filter((f) => /\.(jpg|jpeg|png|webp)$/i.test(f))
+        .slice(0, 6);
+
+      coverCollage.innerHTML = "";
+      sampleImages.forEach((file) => {
+        const img = document.createElement("img");
+        img.src = encodeRelPath(file);
+        img.alt = "";
+        img.onerror = () => img.remove();
+        coverCollage.appendChild(img);
+      });
+    }
+
+    function initJumpSelect() {
+      jumpSelect.innerHTML = "";
+      pageNumbers.forEach((n, i) => {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = `Trang ${n}`;
+        jumpSelect.appendChild(opt);
+      });
+    }
+
+    function pauseCurrentVideo() {
+      const vid = mediaStage.querySelector("video");
+      if (vid) vid.pause();
     }
 
     function loadMedia(pageNum, item, candidates, pos) {
@@ -473,7 +499,6 @@
       const isVideo = /\.(mp4|webm|mov|m4v)$/i.test(rawPath);
 
       mediaStage.innerHTML = "";
-
       if (isVideo) {
         const video = document.createElement("video");
         video.src = url;
@@ -496,19 +521,10 @@
       const pageNum = pageNumbers[currentIndex];
       const item = ALBUM_DATA[pageNum];
       titleInput.value = item.title;
+      jumpSelect.value = currentIndex;
       pageCounter.textContent = `Trang ${pageNum} / ${totalPages}`;
-      updateProgress(pageNum);
-      loadMedia(pageNum, item, buildCandidates(item.image), 0);
-    }
-
-    function goPrev() {
-      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-      renderPage();
-    }
-
-    function goNext() {
-      currentIndex = (currentIndex + 1) % totalPages;
-      renderPage();
+      progressFill.style.width = `${(pageNum / totalPages) * 100}%`;
+      loadMedia(pageNum, item, [item.image, `media/${item.image}`], 0);
     }
 
     document.getElementById("openAlbumBtn").addEventListener("click", () => {
@@ -521,45 +537,42 @@
     document.getElementById("backBtn").addEventListener("click", () => {
       pauseCurrentVideo();
       albumScreen.style.display = "none";
-      coverScreen.style.display = "flex";
+      coverScreen.style.display = "block";
     });
 
-    document.getElementById("prevBtn").addEventListener("click", goPrev);
-    document.getElementById("nextBtn").addEventListener("click", goNext);
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+      renderPage();
+    });
 
-    titleInput.addEventListener("input", (event) => {
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % totalPages;
+      renderPage();
+    });
+
+    jumpSelect.addEventListener("change", (e) => {
+      currentIndex = Number(e.target.value);
+      renderPage();
+    });
+
+    titleInput.addEventListener("input", (e) => {
       const pageNum = pageNumbers[currentIndex];
-      ALBUM_DATA[pageNum].title = event.target.value;
+      ALBUM_DATA[pageNum].title = e.target.value;
     });
 
-    document.addEventListener("keydown", (event) => {
-      if (albumScreen.style.display !== "block" || document.activeElement === titleInput) {
-        return;
-      }
-      if (event.key === "ArrowLeft") {
-        goPrev();
-      } else if (event.key === "ArrowRight") {
-        goNext();
+    document.addEventListener("keydown", (e) => {
+      if (albumScreen.style.display !== "block" || document.activeElement === titleInput) return;
+      if (e.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+        renderPage();
+      } else if (e.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % totalPages;
+        renderPage();
       }
     });
 
-    // Vuốt ngang chuyển trang trên điện thoại
-    let touchStartX = 0;
-    mediaStage.addEventListener("touchstart", (e) => {
-      if (e.touches.length === 1) {
-        touchStartX = e.touches[0].clientX;
-      }
-    }, { passive: true });
-
-    mediaStage.addEventListener("touchend", (e) => {
-      if (e.changedTouches.length === 1) {
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 55) {
-          if (dx < 0) goNext();
-          else goPrev();
-        }
-      }
-    }, { passive: true });
+    initCoverCollage();
+    initJumpSelect();
   </script>
 </body>
 </html>
