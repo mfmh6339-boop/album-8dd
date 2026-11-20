@@ -14,35 +14,50 @@
 
     body {
       min-height: 100vh;
-      background: #181a28;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(235, 75, 115, 0.22), transparent 42%),
+        radial-gradient(circle at 85% 85%, rgba(255, 190, 45, 0.16), transparent 45%),
+        linear-gradient(160deg, #141624 0%, #1d2036 55%, #151726 100%);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 18px;
     }
 
+    /* Trang bìa */
     .cover-wrap {
       width: 100%;
       max-width: 440px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 18px;
+      animation: fadeIn 0.35s ease;
     }
 
     .book-cover {
       width: 100%;
-      min-height: 460px;
-      background: #c3305c;
-      border-radius: 22px;
-      padding: 26px 24px 26px 46px;
+      min-height: 470px;
+      background: linear-gradient(155deg, #d63867 0%, #b52652 100%);
+      border-radius: 24px;
+      padding: 28px 24px 28px 48px;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+      box-shadow:
+        0 22px 45px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .book-cover:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 26px 52px rgba(0, 0, 0, 0.62),
+        0 0 28px rgba(235, 75, 115, 0.28);
     }
 
     .book-cover::before {
@@ -51,68 +66,92 @@
       top: 0;
       left: 0;
       bottom: 0;
-      width: 26px;
-      background: #37265c;
-      border-top-left-radius: 22px;
-      border-bottom-left-radius: 22px;
+      width: 28px;
+      background: linear-gradient(180deg, #432f70 0%, #2b1d4a 100%);
+      border-top-left-radius: 24px;
+      border-bottom-left-radius: 24px;
+      box-shadow: inset -2px 0 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .book-cover::after {
+      content: "✦ 8D ✦";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      width: 28px;
+      color: rgba(255, 224, 130, 0.8);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      white-space: nowrap;
+      pointer-events: none;
     }
 
     .cover-badge {
       width: 100%;
-      background: #fff8eb;
+      background: linear-gradient(180deg, #fffdf7 0%, #fff4df 100%);
       border: 3px solid #ffc341;
-      border-radius: 16px;
-      padding: 22px 14px;
+      border-radius: 18px;
+      padding: 24px 16px;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 8px;
+      box-shadow: 0 8px 20px rgba(65, 30, 50, 0.22);
     }
 
     .cover-badge h1 {
-      color: #41234b;
-      font-size: clamp(24px, 5vw, 32px);
-      font-weight: 800;
-      letter-spacing: 1px;
-      line-height: 1.2;
+      color: #3d1e48;
+      font-size: clamp(26px, 5.2vw, 33px);
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      line-height: 1.15;
     }
 
     .cover-badge p {
-      color: #b94169;
-      font-size: clamp(13px, 3vw, 15px);
+      color: #b93b65;
+      font-size: clamp(13px, 3.1vw, 15px);
       font-weight: 700;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .open-btn {
-      background: #ffbe2d;
-      color: #411e32;
+      background: linear-gradient(180deg, #ffd047 0%, #ffb41c 100%);
+      color: #3d1a2e;
       border: none;
-      border-radius: 28px;
-      padding: 14px 32px;
+      border-radius: 999px;
+      padding: 14px 34px;
       font-size: 17px;
       font-weight: 800;
+      letter-spacing: 0.5px;
       cursor: pointer;
-      box-shadow: 0 6px 0 #d69412;
-      transition: transform 0.12s ease, background 0.15s ease;
+      box-shadow: 0 6px 0 #c98608, 0 12px 24px rgba(0, 0, 0, 0.3);
+      transition: transform 0.14s ease, filter 0.15s ease;
     }
 
     .open-btn:hover {
-      background: #ffd241;
+      filter: brightness(1.05);
+      transform: translateY(-1px);
     }
 
     .open-btn:active {
       transform: translateY(3px);
-      box-shadow: 0 3px 0 #d69412;
+      box-shadow: 0 3px 0 #c98608;
     }
 
+    /* Khung album bên trong */
     .album-box {
       display: none;
-      width: min(860px, 96vw);
-      background: #fffaf2;
+      width: min(880px, 96vw);
+      background:
+        radial-gradient(rgba(235, 75, 115, 0.08) 1px, transparent 1px),
+        #fffaf2;
+      background-size: 18px 18px;
       color: #2d2a3a;
       border: 4px solid #eb4b73;
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.55);
+      animation: fadeIn 0.25s ease;
     }
 
     .top-bar {
@@ -123,44 +162,53 @@
     }
 
     .back-btn {
-      background: #b9323a;
+      background: linear-gradient(180deg, #cb3a43 0%, #a82830 100%);
       color: #ffffff;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 10px 16px;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       flex-shrink: 0;
+      box-shadow: 0 3px 0 #7c1b21;
+      transition: transform 0.12s ease, filter 0.15s ease;
     }
 
     .back-btn:hover {
-      background: #cf3b44;
+      filter: brightness(1.06);
+    }
+
+    .back-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #7c1b21;
     }
 
     .title-box {
       flex: 1;
       background: #ffffff;
       border: 2px solid #eb4b73;
-      border-radius: 12px;
-      padding: 8px 14px;
+      border-radius: 14px;
+      padding: 9px 14px;
       text-align: center;
       font-size: clamp(18px, 3.5vw, 24px);
       font-weight: 800;
       color: #2d2a3a;
       outline: none;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .title-box:focus {
       border-color: #c3305c;
-      box-shadow: 0 0 0 3px rgba(235, 75, 115, 0.18);
+      box-shadow: 0 0 0 4px rgba(235, 75, 115, 0.18);
     }
 
     .media-stage {
       background: #ffffff;
-      border: 2px solid #e5dfd5;
-      border-radius: 14px;
-      min-height: 320px;
+      border: 2px solid #eadfd2;
+      border-radius: 16px;
+      min-height: 330px;
       max-height: 64vh;
       padding: 14px;
       display: flex;
@@ -168,33 +216,54 @@
       justify-content: center;
       overflow: hidden;
       position: relative;
+      box-shadow: inset 0 2px 8px rgba(45, 42, 58, 0.04);
     }
 
     .media-stage img,
     .media-stage video {
       max-width: 100%;
       max-height: 58vh;
-      border-radius: 10px;
+      border-radius: 12px;
       object-fit: contain;
+      box-shadow: 0 8px 22px rgba(24, 26, 40, 0.14);
+      animation: popIn 0.22s ease;
     }
 
     .missing-box {
       text-align: center;
       color: #5f6982;
       font-weight: 700;
-      line-height: 1.5;
+      line-height: 1.55;
       padding: 16px;
     }
 
     .missing-box code {
       display: inline-block;
-      margin-top: 6px;
-      background: #f3efe8;
+      margin-top: 8px;
+      background: #fff0f4;
+      border: 1px solid #f7c5d3;
       color: #b9323a;
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 5px 10px;
+      border-radius: 8px;
       font-size: 12px;
       word-break: break-all;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: #f2e4d8;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #eb4b73 0%, #ffbe2d 100%);
+      border-radius: 999px;
+      transition: width 0.25s ease;
     }
 
     .bottom-bar {
@@ -202,41 +271,62 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-top: 14px;
+      margin-top: 12px;
     }
 
     .nav-btn {
-      background: #ffbe2d;
-      color: #411e32;
+      background: linear-gradient(180deg, #ffd047 0%, #ffb41c 100%);
+      color: #3d1a2e;
       border: none;
-      border-radius: 18px;
-      padding: 10px 20px;
+      border-radius: 999px;
+      padding: 10px 22px;
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
+      box-shadow: 0 3px 0 #c98608;
+      transition: transform 0.12s ease, filter 0.15s ease;
     }
 
     .nav-btn:hover {
-      background: #ffd241;
+      filter: brightness(1.05);
+    }
+
+    .nav-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #c98608;
     }
 
     .page-badge {
-      background: #eb4b73;
+      background: linear-gradient(180deg, #f2547c 0%, #d83b63 100%);
       color: #ffffff;
-      border-radius: 20px;
+      border-radius: 999px;
       padding: 8px 18px;
       font-size: 15px;
       font-weight: 800;
       white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(216, 59, 99, 0.28);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      from { opacity: 0.2; transform: scale(0.985); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     @media (max-width: 560px) {
+      .album-box {
+        padding: 14px;
+      }
       .bottom-bar {
         flex-wrap: wrap;
         justify-content: center;
       }
       .nav-btn {
-        padding: 9px 16px;
+        padding: 9px 18px;
         font-size: 14px;
       }
     }
@@ -266,6 +356,10 @@
     </div>
 
     <div id="mediaStage" class="media-stage"></div>
+
+    <div class="progress-track" aria-hidden="true">
+      <div id="progressFill" class="progress-fill"></div>
+    </div>
 
     <div class="bottom-bar">
       <button id="prevBtn" class="nav-btn">Trang trước</button>
@@ -344,6 +438,7 @@
     const titleInput = document.getElementById("titleInput");
     const mediaStage = document.getElementById("mediaStage");
     const pageCounter = document.getElementById("pageCounter");
+    const progressFill = document.getElementById("progressFill");
 
     function pauseCurrentVideo() {
       const vid = mediaStage.querySelector("video");
@@ -356,6 +451,10 @@
 
     function encodeRelPath(relPath) {
       return "./" + relPath.split("/").map(encodeURIComponent).join("/");
+    }
+
+    function updateProgress(pageNum) {
+      progressFill.style.width = `${(pageNum / totalPages) * 100}%`;
     }
 
     function loadMedia(pageNum, item, candidates, pos) {
@@ -398,7 +497,18 @@
       const item = ALBUM_DATA[pageNum];
       titleInput.value = item.title;
       pageCounter.textContent = `Trang ${pageNum} / ${totalPages}`;
+      updateProgress(pageNum);
       loadMedia(pageNum, item, buildCandidates(item.image), 0);
+    }
+
+    function goPrev() {
+      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+      renderPage();
+    }
+
+    function goNext() {
+      currentIndex = (currentIndex + 1) % totalPages;
+      renderPage();
     }
 
     document.getElementById("openAlbumBtn").addEventListener("click", () => {
@@ -414,15 +524,8 @@
       coverScreen.style.display = "flex";
     });
 
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-      renderPage();
-    });
-
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % totalPages;
-      renderPage();
-    });
+    document.getElementById("prevBtn").addEventListener("click", goPrev);
+    document.getElementById("nextBtn").addEventListener("click", goNext);
 
     titleInput.addEventListener("input", (event) => {
       const pageNum = pageNumbers[currentIndex];
@@ -434,13 +537,29 @@
         return;
       }
       if (event.key === "ArrowLeft") {
-        currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-        renderPage();
+        goPrev();
       } else if (event.key === "ArrowRight") {
-        currentIndex = (currentIndex + 1) % totalPages;
-        renderPage();
+        goNext();
       }
     });
+
+    // Vuốt ngang chuyển trang trên điện thoại
+    let touchStartX = 0;
+    mediaStage.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+
+    mediaStage.addEventListener("touchend", (e) => {
+      if (e.changedTouches.length === 1) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 55) {
+          if (dx < 0) goNext();
+          else goPrev();
+        }
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
