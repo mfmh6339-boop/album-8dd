@@ -14,10 +14,12 @@
 
     body {
       min-height: 100vh;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255, 77, 129, 0.25), transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.18), transparent 42%),
-        #0f111a;
+      /* Nền caro / lưới nhỏ dịu mắt thay cho gradient chói */
+      background-color: #161926;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -25,157 +27,156 @@
       padding: 18px;
     }
 
-    /* Bìa album kiểu sổ kỷ niệm có lưới ảnh nền */
+    /* Trang bìa phong cách sổ tay có đường khâu viền */
     .cover-wrap {
       width: 100%;
-      max-width: 450px;
-      animation: fadeIn 0.3s ease;
+      max-width: 430px;
+      animation: fadeIn 0.25s ease;
     }
 
     .book-cover {
       width: 100%;
-      min-height: 490px;
-      background: linear-gradient(160deg, #e13b6e 0%, #9b1d49 100%);
-      border-radius: 26px;
-      padding: 24px 22px 26px 48px;
+      min-height: 470px;
+      background: #c8325d;
+      /* Họa tiết chấm nhỏ đều trên bìa */
+      background-image: radial-gradient(rgba(255, 248, 235, 0.14) 1.2px, transparent 1.2px);
+      background-size: 16px 16px;
+      border-radius: 22px;
+      padding: 24px 22px 26px 46px;
       position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      box-shadow:
-        0 24px 50px rgba(0, 0, 0, 0.65),
-        0 0 0 1px rgba(255, 255, 255, 0.14) inset;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55);
     }
 
-    /* Lưới ảnh trang trí ở giữa bìa */
-    .cover-collage {
+    /* Đường chỉ khâu trang trí chạy quanh bìa */
+    .book-cover::after {
+      content: "";
       position: absolute;
-      inset: 145px 18px 82px 44px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 8px;
-      opacity: 0.42;
+      inset: 10px 10px 10px 36px;
+      border: 2px dashed rgba(255, 236, 179, 0.55);
+      border-radius: 16px;
       pointer-events: none;
     }
 
-    .cover-collage img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-      border: 2px solid rgba(255, 255, 255, 0.55);
-      transform: rotate(-1.5deg);
-    }
-
-    .cover-collage img:nth-child(even) {
-      transform: rotate(2deg);
-    }
-
-    /* Gáy sách bên trái */
+    /* Gáy sổ bên trái + lỗ ghim/khâu */
     .book-cover::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       bottom: 0;
-      width: 28px;
-      background: linear-gradient(180deg, #3b2667 0%, #21143d 100%);
-      border-right: 2px solid rgba(255, 210, 82, 0.35);
+      width: 26px;
+      background: #352359;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 34px,
+        rgba(255, 212, 84, 0.45) 34px,
+        rgba(255, 212, 84, 0.45) 38px
+      );
+      border-top-left-radius: 22px;
+      border-bottom-left-radius: 22px;
       z-index: 2;
     }
 
-    .spine-tag {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%) rotate(-90deg);
-      z-index: 3;
-      color: #ffd454;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    .cover-header {
+    .cover-badge {
       position: relative;
       z-index: 2;
       width: 100%;
-      background: rgba(255, 250, 240, 0.96);
-      border: 3px solid #ffc93c;
-      border-radius: 20px;
-      padding: 18px 16px;
+      background: #fffaf0;
+      border: 3px solid #ffc63b;
+      border-radius: 18px;
+      padding: 22px 16px;
       text-align: center;
-      box-shadow: 0 12px 24px rgba(25, 8, 22, 0.35);
+      margin-top: 8px;
+      box-shadow: 0 6px 0 rgba(75, 20, 42, 0.25);
     }
 
-    .mini-chip {
-      display: inline-block;
-      background: #ffe5ec;
-      color: #b82956;
+    /* Sticker góc nhỏ trên huy hiệu */
+    .cover-badge::before {
+      content: "8D";
+      position: absolute;
+      top: -11px;
+      right: 14px;
+      background: #ffbe2d;
+      color: #3d1a2e;
       font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      padding: 4px 10px;
+      font-weight: 900;
+      padding: 2px 9px;
       border-radius: 999px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
+      border: 2px solid #fffaf0;
     }
 
-    .cover-header h1 {
-      color: #361842;
-      font-size: clamp(26px, 5.5vw, 34px);
+    .cover-badge h1 {
+      color: #3c1d47;
+      font-size: clamp(26px, 5.2vw, 32px);
       font-weight: 900;
       letter-spacing: 1.5px;
     }
 
-    .cover-header p {
-      color: #b83260;
+    .cover-badge p {
+      color: #b63862;
       font-size: 14px;
       font-weight: 700;
-      margin-top: 6px;
+      margin-top: 8px;
+    }
+
+    /* Khu vực khung trang trí ở giữa bìa (nhãn + khung viền nét đứt) */
+    .cover-deco {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      background: rgba(255, 250, 240, 0.14);
+      border: 1.5px dashed rgba(255, 248, 235, 0.55);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      color: #fff6e5;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.5;
     }
 
     .open-btn {
       position: relative;
       z-index: 2;
-      background: linear-gradient(180deg, #ffe066 0%, #ffaa00 100%);
-      color: #381529;
+      background: #ffbe2d;
+      color: #3d1a2e;
       border: none;
       border-radius: 999px;
-      padding: 14px 36px;
+      padding: 13px 32px;
       font-size: 16px;
       font-weight: 900;
-      letter-spacing: 0.6px;
       cursor: pointer;
-      box-shadow: 0 6px 0 #b87400, 0 14px 26px rgba(0, 0, 0, 0.4);
-      transition: transform 0.12s ease, filter 0.15s ease;
+      box-shadow: 0 5px 0 #c7860a;
+      transition: transform 0.12s ease, background 0.15s ease;
     }
 
     .open-btn:hover {
-      filter: brightness(1.06);
-      transform: translateY(-2px);
+      background: #ffd147;
     }
 
     .open-btn:active {
       transform: translateY(3px);
-      box-shadow: 0 3px 0 #b87400;
+      box-shadow: 0 2px 0 #c7860a;
     }
 
-    /* Giao diện bên trong album */
+    /* Giao diện xem album bên trong */
     .album-box {
       display: none;
-      width: min(900px, 96vw);
-      background: #171a29;
-      color: #f8fafc;
-      border: 2px solid rgba(255, 77, 129, 0.55);
-      border-radius: 24px;
+      width: min(880px, 96vw);
+      background-color: #fffaf2;
+      /* Họa tiết chấm bi kem nhẹ */
+      background-image: radial-gradient(rgba(235, 75, 115, 0.11) 1.2px, transparent 1.2px);
+      background-size: 20px 20px;
+      color: #2d2a3a;
+      border: 4px solid #eb4b73;
+      border-radius: 22px;
       padding: 18px;
-      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.65);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
       animation: fadeIn 0.25s ease;
     }
 
@@ -188,44 +189,49 @@
     }
 
     .back-btn {
-      background: #ef4444;
-      color: #fff;
+      background: #b9323a;
+      color: #ffffff;
       border: none;
-      border-radius: 12px;
+      border-radius: 11px;
       padding: 10px 15px;
       font-size: 14px;
       font-weight: 800;
       cursor: pointer;
-      transition: background 0.15s ease;
+      box-shadow: 0 3px 0 #821d23;
     }
 
     .back-btn:hover {
-      background: #dc2626;
+      background: #cc3a43;
+    }
+
+    .back-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #821d23;
     }
 
     .title-box {
       flex: 1;
       min-width: 180px;
-      background: #22273d;
-      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      background: #ffffff;
+      border: 2px solid #eb4b73;
       border-radius: 12px;
-      padding: 9px 14px;
+      padding: 8px 14px;
       text-align: center;
-      font-size: clamp(17px, 3vw, 22px);
+      font-size: clamp(18px, 3.2vw, 23px);
       font-weight: 800;
-      color: #ffffff;
+      color: #2d2a3a;
       outline: none;
     }
 
     .title-box:focus {
-      border-color: #ff4d81;
-      box-shadow: 0 0 0 3px rgba(255, 77, 129, 0.22);
+      border-color: #c3305c;
+      box-shadow: 0 0 0 3px rgba(235, 75, 115, 0.16);
     }
 
     .jump-select {
-      background: #22273d;
-      color: #ffd454;
-      border: 1.5px solid rgba(255, 212, 84, 0.45);
+      background: #ffffff;
+      color: #3d1a2e;
+      border: 2px solid #ffc341;
       border-radius: 12px;
       padding: 9px 10px;
       font-size: 13px;
@@ -234,42 +240,56 @@
       outline: none;
     }
 
+    /* Khung ảnh kiểu trang sổ có viền chỉ mảnh bên trong */
     .media-stage {
-      background: #0d0f18;
-      border: 1.5px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      min-height: 340px;
-      max-height: 65vh;
-      padding: 14px;
+      background: #ffffff;
+      border: 2px solid #e6ddd0;
+      border-radius: 16px;
+      min-height: 330px;
+      max-height: 64vh;
+      padding: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
+    }
+
+    .media-stage::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 1.5px dashed rgba(235, 75, 115, 0.28);
+      border-radius: 12px;
+      pointer-events: none;
     }
 
     .media-stage img,
     .media-stage video {
+      position: relative;
+      z-index: 1;
       max-width: 100%;
-      max-height: 59vh;
-      border-radius: 12px;
+      max-height: 57vh;
+      border-radius: 10px;
       object-fit: contain;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     }
 
     .missing-box {
+      position: relative;
+      z-index: 1;
       text-align: center;
-      color: #94a3b8;
+      color: #5f6982;
       font-weight: 700;
-      line-height: 1.6;
+      line-height: 1.55;
       padding: 16px;
     }
 
     .missing-box code {
       display: inline-block;
       margin-top: 8px;
-      background: #1e2438;
-      color: #fda4af;
-      border: 1px solid rgba(251, 113, 133, 0.3);
+      background: #fff3f6;
+      border: 1px solid #f5c2d0;
+      color: #b9323a;
       padding: 5px 10px;
       border-radius: 8px;
       font-size: 12px;
@@ -279,7 +299,7 @@
     .progress-track {
       width: 100%;
       height: 6px;
-      background: #252b42;
+      background: #efe3d5;
       border-radius: 999px;
       overflow: hidden;
       margin-top: 14px;
@@ -288,8 +308,9 @@
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #ff4d81 0%, #ffbe2d 100%);
-      transition: width 0.25s ease;
+      background: #eb4b73;
+      border-radius: 999px;
+      transition: width 0.2s ease;
     }
 
     .bottom-bar {
@@ -302,23 +323,29 @@
     }
 
     .nav-btn {
-      background: linear-gradient(180deg, #ffd454 0%, #ffaa00 100%);
-      color: #2b1422;
+      background: #ffbe2d;
+      color: #3d1a2e;
       border: none;
       border-radius: 999px;
-      padding: 10px 22px;
+      padding: 10px 20px;
       font-size: 14px;
-      font-weight: 900;
+      font-weight: 800;
       cursor: pointer;
+      box-shadow: 0 3px 0 #c7860a;
     }
 
     .nav-btn:hover {
-      filter: brightness(1.06);
+      background: #ffd147;
+    }
+
+    .nav-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #c7860a;
     }
 
     .page-badge {
-      background: linear-gradient(135deg, #ff4d81 0%, #c82356 100%);
-      color: #fff;
+      background: #eb4b73;
+      color: #ffffff;
       border-radius: 999px;
       padding: 8px 18px;
       font-size: 14px;
@@ -326,7 +353,7 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -334,14 +361,14 @@
 <body>
   <section id="coverScreen" class="cover-wrap">
     <div class="book-cover">
-      <span class="spine-tag">8D • KỶ NIỆM</span>
-
-      <div id="coverCollage" class="cover-collage" aria-hidden="true"></div>
-
-      <div class="cover-header">
-        <span class="mini-chip">Album Class 8D</span>
+      <div class="cover-badge">
         <h1>MY ALBUM</h1>
         <p>57 TRANG KỶ NIỆM Đại gia đình 8D</p>
+      </div>
+
+      <div class="cover-deco">
+        ✦ Khoảnh khắc • Tiếng cười • Kỷ niệm ✦<br />
+        Mở sổ để xem đầy đủ 57 trang ảnh &amp; video
       </div>
 
       <button id="openAlbumBtn" class="open-btn">BẤM ĐỂ MỞ</button>
@@ -441,7 +468,6 @@
 
     const coverScreen = document.getElementById("coverScreen");
     const albumScreen = document.getElementById("albumScreen");
-    const coverCollage = document.getElementById("coverCollage");
     const titleInput = document.getElementById("titleInput");
     const jumpSelect = document.getElementById("jumpSelect");
     const mediaStage = document.getElementById("mediaStage");
@@ -450,22 +476,6 @@
 
     function encodeRelPath(relPath) {
       return "./" + relPath.split("/").map(encodeURIComponent).join("/");
-    }
-
-    function initCoverCollage() {
-      const sampleImages = pageNumbers
-        .map((n) => ALBUM_DATA[n].image)
-        .filter((f) => /\.(jpg|jpeg|png|webp)$/i.test(f))
-        .slice(0, 6);
-
-      coverCollage.innerHTML = "";
-      sampleImages.forEach((file) => {
-        const img = document.createElement("img");
-        img.src = encodeRelPath(file);
-        img.alt = "";
-        img.onerror = () => img.remove();
-        coverCollage.appendChild(img);
-      });
     }
 
     function initJumpSelect() {
@@ -571,7 +581,6 @@
       }
     });
 
-    initCoverCollage();
     initJumpSelect();
   </script>
 </body>
