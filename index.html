@@ -363,12 +363,12 @@
     <div class="book-cover">
       <div class="cover-badge">
         <h1>MY ALBUM</h1>
-        <p>57 TRANG KỶ NIỆM Đại gia đình 8D</p>
+        <p>78 TRANG KỶ NIỆM Đại gia đình 8D</p>
       </div>
 
       <div class="cover-deco">
         ✦ Khoảnh khắc • Tiếng cười • Kỷ niệm ✦<br />
-        Mở sổ để xem đầy đủ 57 trang ảnh &amp; video
+        Mở sổ để xem đầy đủ 78 trang ảnh &amp; video
       </div>
 
       <button id="openAlbumBtn" class="open-btn">BẤM ĐỂ MỞ</button>
@@ -396,7 +396,7 @@
 
     <div class="bottom-bar">
       <button id="prevBtn" class="nav-btn">Trang trước</button>
-      <span id="pageCounter" class="page-badge">Trang 1 / 57</span>
+      <span id="pageCounter" class="page-badge">Trang 1 / 78</span>
       <button id="nextBtn" class="nav-btn">Trang sau</button>
     </div>
   </section>
@@ -459,7 +459,28 @@
       54: { image: "1794829079146_6390427003562590236_g1291880486542543710_18811dd0494c91980db2a0881e789ca4.jpg", title: "3 ông tướng" },
       55: { image: "1794830380225_6390427003562590236_g1291880486542543710_5820a538eb1050edc430233b5ab4a039.jpg", title: "..." },
       56: { image: "1794832981500_6652188926997035746_g1291880486542543710_418b80d18879f56279e06efecf421dc5.jpg", title: "Đến con trai !" },
-      57: { image: "1794832981559_6652188926997035746_g1291880486542543710_dc4ff74d8d2cae61a1f8921464bd61c2.jpg", title: "Hết rồi !" }
+      57: { image: "1794832981559_6652188926997035746_g1291880486542543710_dc4ff74d8d2cae61a1f8921464bd61c2.jpg", title: "Hết rồi !" },
+      58: { image: "0d151555f3854e359e8865367406d38a.webp", title: "Chụp cái dell gì ?" },
+      59: { image: "4fec54fd9f884de296b046c4c5be9201.webp", title: "Dell đùa !" },
+      60: { image: "5ef280852aef4711abb587f82491cd56.webp", title: "Thỏ đáng yêu hong !" },
+      61: { image: "32cb5be4afa44322bde9b2033c8ce397.webp", title: "Lại thỏ !" },
+      62: { image: "50ce5ba9a4124d049e824f7c0da02c5d.webp", title: "Nhìn em từ xa mà nhói lòng !" },
+      63: { image: "89ee157e1fc14b0aa1a65bf578f1d381.webp", title: "Soạn đồ thôi mọi người ơi !" },
+      64: { image: "3215f15eda6a40e68034d8f644d7fd19.webp", title: "Tai một nơi đầu 1 nẻo" },
+      65: { image: "20261113_143017.jpg", title: "Chi hỏi !" },
+      66: { image: "20261113_145406.jpg", title: "Tiểu thư lạnh lùng 3 máu 6 cơn !" },
+      67: { image: "20261114_095946.jpg", title: "Chill" },
+      68: { image: "20261114_095950.jpg", title: "Cô làm tôi cười rồi đó !" },
+      69: { image: "20261114_095952.jpg", title: "Làm đẹp đã rồi tính tiếp !" },
+      70: { image: "20261116_134341.jpg", title: "Cận cảnh con gà lớn nhất hành tinh !" },
+      71: { image: "20261116_134430.jpg", title: "Chân dung fan nhờ idol chụp hộ !" },
+      72: { image: "20261116_134443.jpg", title: "Oi vùi !" },
+      73: { image: "20261116_134454.jpg", title: "Dẹt !" },
+      74: { image: "20261116_134532.jpg", title: "Tổng bí thư Lê DUẨN !" },
+      75: { image: "20261116_134545.jpg", title: "Toi ười !" },
+      76: { image: "20261116_134555.jpg", title: "Ngậm mồm để anh làm việc !" },
+      77: { image: "a3e3d61cf9aa4680b70cc682a1328aa3.webp", title: "ùi ui xúc xích ngon thế" },
+      78: { image: "d83358fdf7db4f1d8ec3a7692e56f7c2.webp", title: "Sao lại ngon thế được nhở!" }
     };
 
     const pageNumbers = Object.keys(ALBUM_DATA).map(Number).sort((a, b) => a - b);
@@ -537,6 +558,16 @@
       loadMedia(pageNum, item, [item.image, `media/${item.image}`], 0);
     }
 
+    function goPrev() {
+      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
+      renderPage();
+    }
+
+    function goNext() {
+      currentIndex = (currentIndex + 1) % totalPages;
+      renderPage();
+    }
+
     document.getElementById("openAlbumBtn").addEventListener("click", () => {
       coverScreen.style.display = "none";
       albumScreen.style.display = "block";
@@ -550,15 +581,8 @@
       coverScreen.style.display = "block";
     });
 
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-      renderPage();
-    });
-
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % totalPages;
-      renderPage();
-    });
+    document.getElementById("prevBtn").addEventListener("click", goPrev);
+    document.getElementById("nextBtn").addEventListener("click", goNext);
 
     jumpSelect.addEventListener("change", (e) => {
       currentIndex = Number(e.target.value);
@@ -573,13 +597,28 @@
     document.addEventListener("keydown", (e) => {
       if (albumScreen.style.display !== "block" || document.activeElement === titleInput) return;
       if (e.key === "ArrowLeft") {
-        currentIndex = (currentIndex - 1 + totalPages) % totalPages;
-        renderPage();
+        goPrev();
       } else if (e.key === "ArrowRight") {
-        currentIndex = (currentIndex + 1) % totalPages;
-        renderPage();
+        goNext();
       }
     });
+
+    let touchStartX = 0;
+    mediaStage.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+
+    mediaStage.addEventListener("touchend", (e) => {
+      if (e.changedTouches.length === 1) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 55) {
+          if (dx < 0) goNext();
+          else goPrev();
+        }
+      }
+    }, { passive: true });
 
     initJumpSelect();
   </script>
