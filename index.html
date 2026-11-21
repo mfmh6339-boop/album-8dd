@@ -14,7 +14,6 @@
 
     body {
       min-height: 100vh;
-      /* Nền caro / lưới nhỏ dịu mắt thay cho gradient chói */
       background-color: #161926;
       background-image:
         linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -38,7 +37,6 @@
       width: 100%;
       min-height: 470px;
       background: #c8325d;
-      /* Họa tiết chấm nhỏ đều trên bìa */
       background-image: radial-gradient(rgba(255, 248, 235, 0.14) 1.2px, transparent 1.2px);
       background-size: 16px 16px;
       border-radius: 22px;
@@ -51,7 +49,6 @@
       box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55);
     }
 
-    /* Đường chỉ khâu trang trí chạy quanh bìa */
     .book-cover::after {
       content: "";
       position: absolute;
@@ -61,7 +58,6 @@
       pointer-events: none;
     }
 
-    /* Gáy sổ bên trái + lỗ ghim/khâu */
     .book-cover::before {
       content: "";
       position: absolute;
@@ -95,7 +91,6 @@
       box-shadow: 0 6px 0 rgba(75, 20, 42, 0.25);
     }
 
-    /* Sticker góc nhỏ trên huy hiệu */
     .cover-badge::before {
       content: "8D";
       position: absolute;
@@ -124,7 +119,6 @@
       margin-top: 8px;
     }
 
-    /* Khu vực khung trang trí ở giữa bìa (nhãn + khung viền nét đứt) */
     .cover-deco {
       position: relative;
       z-index: 2;
@@ -167,24 +161,44 @@
     /* Giao diện xem album bên trong */
     .album-box {
       display: none;
-      width: min(880px, 96vw);
+      width: min(900px, 96vw);
       background-color: #fffaf2;
-      /* Họa tiết chấm bi kem nhẹ */
-      background-image: radial-gradient(rgba(235, 75, 115, 0.11) 1.2px, transparent 1.2px);
+      background-image: radial-gradient(rgba(235, 75, 115, 0.1) 1.1px, transparent 1.1px);
       background-size: 20px 20px;
       color: #2d2a3a;
-      border: 4px solid #eb4b73;
+      border: 4px solid var(--page-accent, #eb4b73);
       border-radius: 22px;
       padding: 18px;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
       animation: fadeIn 0.25s ease;
+      transition: border-color 0.25s ease;
+    }
+
+    /* Dải hoa văn dệt / thổ cẩm chạy ngang đầu khung trang */
+    .page-motif-banner {
+      height: 22px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      background-color: var(--motif-bg, #ffe9ef);
+      border: 1.5px solid var(--motif-border, #f3b5c6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      overflow: hidden;
+    }
+
+    .page-motif-banner svg {
+      width: 100%;
+      height: 16px;
+      display: block;
     }
 
     .top-bar {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
     }
 
@@ -213,7 +227,7 @@
       flex: 1;
       min-width: 180px;
       background: #ffffff;
-      border: 2px solid #eb4b73;
+      border: 2px solid var(--page-accent, #eb4b73);
       border-radius: 12px;
       padding: 8px 14px;
       text-align: center;
@@ -224,7 +238,6 @@
     }
 
     .title-box:focus {
-      border-color: #c3305c;
       box-shadow: 0 0 0 3px rgba(235, 75, 115, 0.16);
     }
 
@@ -240,14 +253,14 @@
       outline: none;
     }
 
-    /* Khung ảnh kiểu trang sổ có viền chỉ mảnh bên trong */
+    /* Trang sách có họa tiết hoa lá, nét trang sách & hoa văn dân tộc ở 4 góc */
     .media-stage {
       background: #ffffff;
       border: 2px solid #e6ddd0;
       border-radius: 16px;
-      min-height: 330px;
+      min-height: 340px;
       max-height: 64vh;
-      padding: 16px;
+      padding: 28px 34px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -255,33 +268,39 @@
       position: relative;
     }
 
-    .media-stage::before {
-      content: "";
+    .page-ornament {
       position: absolute;
-      inset: 7px;
-      border: 1.5px dashed rgba(235, 75, 115, 0.28);
-      border-radius: 12px;
       pointer-events: none;
+      z-index: 2;
+      opacity: 0.9;
     }
+
+    .orn-tl { top: 6px; left: 6px; width: 78px; height: 78px; }
+    .orn-tr { top: 6px; right: 6px; width: 78px; height: 78px; transform: scaleX(-1); }
+    .orn-bl { bottom: 6px; left: 6px; width: 78px; height: 78px; transform: scaleY(-1); }
+    .orn-br { bottom: 6px; right: 6px; width: 78px; height: 78px; transform: scale(-1, -1); }
 
     .media-stage img,
     .media-stage video {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       max-width: 100%;
-      max-height: 57vh;
+      max-height: 55vh;
       border-radius: 10px;
       object-fit: contain;
+      background: #ffffff;
     }
 
     .missing-box {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       text-align: center;
       color: #5f6982;
       font-weight: 700;
       line-height: 1.55;
       padding: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 12px;
     }
 
     .missing-box code {
@@ -308,9 +327,9 @@
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: #eb4b73;
+      background: var(--page-accent, #eb4b73);
       border-radius: 999px;
-      transition: width 0.2s ease;
+      transition: width 0.2s ease, background-color 0.25s ease;
     }
 
     .bottom-bar {
@@ -344,17 +363,28 @@
     }
 
     .page-badge {
-      background: #eb4b73;
+      background: var(--page-accent, #eb4b73);
       color: #ffffff;
       border-radius: 999px;
       padding: 8px 18px;
       font-size: 14px;
       font-weight: 800;
+      transition: background-color 0.25s ease;
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .media-stage {
+        padding: 20px 18px;
+      }
+      .orn-tl, .orn-tr, .orn-bl, .orn-br {
+        width: 54px;
+        height: 54px;
+      }
     }
   </style>
 </head>
@@ -376,6 +406,8 @@
   </section>
 
   <section id="albumScreen" class="album-box">
+    <div class="page-motif-banner" id="motifBanner" aria-hidden="true"></div>
+
     <div class="top-bar">
       <button id="backBtn" class="back-btn">Quay lại</button>
       <input
@@ -483,12 +515,228 @@
       78: { image: "d83358fdf7db4f1d8ec3a7692e56f7c2.webp", title: "Sao lại ngon thế được nhở!" }
     };
 
+    // Các bộ chủ đề hoa văn khác nhau cho từng trang
+    const THEMES = [
+      {
+        accent: "#eb4b73",
+        bannerBg: "#fff0f4",
+        bannerBorder: "#f5b8c8",
+        c1: "#d63362",
+        c2: "#2e8b57",
+        c3: "#e89b14"
+      },
+      {
+        accent: "#2d7d6f",
+        bannerBg: "#ecf8f5",
+        bannerBorder: "#a8dfd3",
+        c1: "#256d60",
+        c2: "#c94a38",
+        c3: "#d49b27"
+      },
+      {
+        accent: "#c85a28",
+        bannerBg: "#fdf2ea",
+        bannerBorder: "#f2c2a7",
+        c1: "#b84a1e",
+        c2: "#3b6e52",
+        c3: "#8c3b5c"
+      },
+      {
+        accent: "#59468c",
+        bannerBg: "#f3f0fc",
+        bannerBorder: "#c8bce8",
+        c1: "#4b387a",
+        c2: "#d97724",
+        c3: "#2f8573"
+      },
+      {
+        accent: "#b83b5e",
+        bannerBg: "#fdf0f3",
+        bannerBorder: "#f0becc",
+        c1: "#a62c4e",
+        c2: "#4d7c3f",
+        c3: "#c98a1e"
+      },
+      {
+        accent: "#2c6e8a",
+        bannerBg: "#edf6fa",
+        bannerBorder: "#b1d9ea",
+        c1: "#235c75",
+        c2: "#c44536",
+        c3: "#d19c2a"
+      }
+    ];
+
+    function buildBannerSVG(styleIndex, theme) {
+      const mode = styleIndex % 4;
+      if (mode === 0) {
+        // Họa tiết thổ cẩm tam giác & thoi dệt
+        return `
+          <svg viewBox="0 0 600 18" preserveAspectRatio="none">
+            <g fill="none" stroke="${theme.c1}" stroke-width="1.6">
+              <path d="M0 9 L15 2 L30 9 L15 16 Z M30 9 L45 2 L60 9 L45 16 Z M60 9 L75 2 L90 9 L75 16 Z M90 9 L105 2 L120 9 L105 16 Z M120 9 L135 2 L150 9 L135 16 Z M150 9 L165 2 L180 9 L165 16 Z M180 9 L195 2 L210 9 L195 16 Z M210 9 L225 2 L240 9 L225 16 Z M240 9 L255 2 L270 9 L255 16 Z M270 9 L285 2 L300 9 L285 16 Z M300 9 L315 2 L330 9 L315 16 Z M330 9 L345 2 L360 9 L345 16 Z M360 9 L375 2 L390 9 L375 16 Z M390 9 L405 2 L420 9 L405 16 Z M420 9 L435 2 L450 9 L435 16 Z M450 9 L465 2 L480 9 L465 16 Z M480 9 L495 2 L510 9 L495 16 Z M510 9 L525 2 L540 9 L525 16 Z M540 9 L555 2 L570 9 L555 16 Z M570 9 L585 2 L600 9 L585 16 Z"/>
+            </g>
+            <g fill="${theme.c3}">
+              <circle cx="15" cy="9" r="2.2"/><circle cx="75" cy="9" r="2.2"/><circle cx="135" cy="9" r="2.2"/>
+              <circle cx="195" cy="9" r="2.2"/><circle cx="255" cy="9" r="2.2"/><circle cx="315" cy="9" r="2.2"/>
+              <circle cx="375" cy="9" r="2.2"/><circle cx="435" cy="9" r="2.2"/><circle cx="495" cy="9" r="2.2"/><circle cx="555" cy="9" r="2.2"/>
+            </g>
+          </svg>
+        `;
+      }
+      if (mode === 1) {
+        // Dây leo lá & nụ hoa
+        return `
+          <svg viewBox="0 0 600 18" preserveAspectRatio="none">
+            <path d="M0 10 Q30 2 60 10 T120 10 T180 10 T240 10 T300 10 T360 10 T420 10 T480 10 T540 10 T600 10"
+                  fill="none" stroke="${theme.c2}" stroke-width="1.6"/>
+            <g fill="${theme.c2}">
+              <ellipse cx="30" cy="4" rx="5" ry="2.5" transform="rotate(-25 30 4)"/>
+              <ellipse cx="90" cy="15" rx="5" ry="2.5" transform="rotate(25 90 15)"/>
+              <ellipse cx="150" cy="4" rx="5" ry="2.5" transform="rotate(-25 150 4)"/>
+              <ellipse cx="210" cy="15" rx="5" ry="2.5" transform="rotate(25 210 15)"/>
+              <ellipse cx="270" cy="4" rx="5" ry="2.5" transform="rotate(-25 270 4)"/>
+              <ellipse cx="330" cy="15" rx="5" ry="2.5" transform="rotate(25 330 15)"/>
+              <ellipse cx="390" cy="4" rx="5" ry="2.5" transform="rotate(-25 390 4)"/>
+              <ellipse cx="450" cy="15" rx="5" ry="2.5" transform="rotate(25 450 15)"/>
+              <ellipse cx="510" cy="4" rx="5" ry="2.5" transform="rotate(-25 510 4)"/>
+              <ellipse cx="570" cy="15" rx="5" ry="2.5" transform="rotate(25 570 15)"/>
+            </g>
+            <g fill="${theme.c1}">
+              <circle cx="60" cy="10" r="3.2"/><circle cx="180" cy="10" r="3.2"/><circle cx="300" cy="10" r="3.2"/>
+              <circle cx="420" cy="10" r="3.2"/><circle cx="540" cy="10" r="3.2"/>
+            </g>
+          </svg>
+        `;
+      }
+      if (mode === 2) {
+        // Sóng cuộn & chấm trang sách cổ điển
+        return `
+          <svg viewBox="0 0 600 18" preserveAspectRatio="none">
+            <path d="M0 14 A12 12 0 0 1 24 14 A12 12 0 0 1 48 14 A12 12 0 0 1 72 14 A12 12 0 0 1 96 14
+                     A12 12 0 0 1 120 14 A12 12 0 0 1 144 14 A12 12 0 0 1 168 14 A12 12 0 0 1 192 14
+                     A12 12 0 0 1 216 14 A12 12 0 0 1 240 14 A12 12 0 0 1 264 14 A12 12 0 0 1 288 14
+                     A12 12 0 0 1 312 14 A12 12 0 0 1 336 14 A12 12 0 0 1 360 14 A12 12 0 0 1 384 14
+                     A12 12 0 0 1 408 14 A12 12 0 0 1 432 14 A12 12 0 0 1 456 14 A12 12 0 0 1 480 14
+                     A12 12 0 0 1 504 14 A12 12 0 0 1 528 14 A12 12 0 0 1 552 14 A12 12 0 0 1 576 14"
+                  fill="none" stroke="${theme.c1}" stroke-width="1.5"/>
+            <g fill="${theme.c3}">
+              <polygon points="12,5 15,9 12,13 9,9"/><polygon points="60,5 63,9 60,13 57,9"/>
+              <polygon points="108,5 111,9 108,13 105,9"/><polygon points="156,5 159,9 156,13 153,9"/>
+              <polygon points="204,5 207,9 204,13 201,9"/><polygon points="252,5 255,9 252,13 249,9"/>
+              <polygon points="300,5 303,9 300,13 297,9"/><polygon points="348,5 351,9 348,13 345,9"/>
+              <polygon points="396,5 399,9 396,13 393,9"/><polygon points="444,5 447,9 444,13 441,9"/>
+              <polygon points="492,5 495,9 492,13 489,9"/><polygon points="540,5 543,9 540,13 537,9"/>
+            </g>
+          </svg>
+        `;
+      }
+      // Răng cưa thổ cẩm xen kẽ hoa văn
+      return `
+        <svg viewBox="0 0 600 18" preserveAspectRatio="none">
+          <g fill="${theme.c1}" opacity="0.85">
+            <polygon points="8,16 18,3 28,16"/><polygon points="38,16 48,3 58,16"/>
+            <polygon points="68,16 78,3 88,16"/><polygon points="98,16 108,3 118,16"/>
+            <polygon points="128,16 138,3 148,16"/><polygon points="158,16 168,3 178,16"/>
+            <polygon points="188,16 198,3 208,16"/><polygon points="218,16 228,3 238,16"/>
+            <polygon points="248,16 258,3 268,16"/><polygon points="278,16 288,3 298,16"/>
+            <polygon points="308,16 318,3 328,16"/><polygon points="338,16 348,3 358,16"/>
+            <polygon points="368,16 378,3 388,16"/><polygon points="398,16 408,3 418,16"/>
+            <polygon points="428,16 438,3 448,16"/><polygon points="458,16 468,3 478,16"/>
+            <polygon points="488,16 498,3 508,16"/><polygon points="518,16 528,3 538,16"/>
+            <polygon points="548,16 558,3 568,16"/><polygon points="578,16 588,3 598,16"/>
+          </g>
+          <circle cx="33" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="93" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="153" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="213" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="273" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="333" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="393" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="453" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="513" cy="9" r="2.2" fill="${theme.c2}"/>
+          <circle cx="573" cy="9" r="2.2" fill="${theme.c2}"/>
+        </svg>
+      `;
+    }
+
+    // Họa tiết góc trang sách: hoa 6 cánh + nhánh lá + khung trang sách + nét dân tộc
+    function buildCornerSVG(cornerKind, theme) {
+      const k = cornerKind % 4;
+      if (k === 0) {
+        // Hoa cánh tròn + nhánh lá + nét khung trang sách
+        return `
+          <svg viewBox="0 0 90 90">
+            <path d="M6 76 L6 6 L76 6" fill="none" stroke="${theme.c1}" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 68 L12 12 L68 12" fill="none" stroke="${theme.c3}" stroke-width="1.2" stroke-dasharray="3 3"/>
+            <path d="M14 48 Q24 24 52 14" fill="none" stroke="${theme.c2}" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="26" cy="30" rx="7" ry="3.5" transform="rotate(-38 26 30)" fill="${theme.c2}"/>
+            <ellipse cx="38" cy="21" rx="7" ry="3.5" transform="rotate(-22 38 21)" fill="${theme.c2}"/>
+            <g transform="translate(18,18)">
+              <circle cx="0" cy="-7" r="4.5" fill="${theme.c1}"/>
+              <circle cx="6.6" cy="-2.2" r="4.5" fill="${theme.c1}"/>
+              <circle cx="4.1" cy="5.7" r="4.5" fill="${theme.c1}"/>
+              <circle cx="-4.1" cy="5.7" r="4.5" fill="${theme.c1}"/>
+              <circle cx="-6.6" cy="-2.2" r="4.5" fill="${theme.c1}"/>
+              <circle cx="0" cy="0" r="3.4" fill="${theme.c3}"/>
+            </g>
+          </svg>
+        `;
+      }
+      if (k === 1) {
+        // Hoa văn dân tộc (hình thoi & tam giác dệt) + lá nhỏ
+        return `
+          <svg viewBox="0 0 90 90">
+            <path d="M6 78 L6 6 L78 6" fill="none" stroke="${theme.c1}" stroke-width="2.2"/>
+            <polygon points="18,6 26,14 18,22 10,14" fill="none" stroke="${theme.c1}" stroke-width="1.7"/>
+            <circle cx="18" cy="14" r="2.3" fill="${theme.c3}"/>
+            <polygon points="34,6 42,13 26,13" fill="${theme.c2}" opacity="0.85"/>
+            <polygon points="6,34 13,42 13,26" fill="${theme.c2}" opacity="0.85"/>
+            <path d="M14 54 Q26 36 50 18" fill="none" stroke="${theme.c2}" stroke-width="1.6"/>
+            <circle cx="48" cy="18" r="3" fill="${theme.c1}"/>
+          </svg>
+        `;
+      }
+      if (k === 2) {
+        // Cuộn trang sách cổ điển + bông hoa cánh nhọn
+        return `
+          <svg viewBox="0 0 90 90">
+            <path d="M8 74 C8 22, 22 8, 74 8" fill="none" stroke="${theme.c1}" stroke-width="2" stroke-linecap="round"/>
+            <path d="M14 64 C14 26, 26 14, 64 14" fill="none" stroke="${theme.c2}" stroke-width="1.5" stroke-linecap="round"/>
+            <g transform="translate(20,20)">
+              <polygon points="0,-10 3.2,-3.2 10,0 3.2,3.2 0,10 -3.2,3.2 -10,0 -3.2,-3.2" fill="${theme.c1}"/>
+              <circle cx="0" cy="0" r="3" fill="${theme.c3}"/>
+            </g>
+            <ellipse cx="44" cy="14" rx="6" ry="2.8" fill="${theme.c2}"/>
+            <ellipse cx="14" cy="44" rx="2.8" ry="6" fill="${theme.c2}"/>
+          </svg>
+        `;
+      }
+      // Hoa văn dệt bậc thang dân tộc + chùm lá
+      return `
+        <svg viewBox="0 0 90 90">
+          <path d="M6 76 L6 6 L76 6" fill="none" stroke="${theme.c1}" stroke-width="2"/>
+          <path d="M12 44 L12 24 L24 24 L24 12 L44 12" fill="none" stroke="${theme.c3}" stroke-width="1.8"/>
+          <g transform="translate(17,17)">
+            <circle cx="-5" cy="-5" r="4" fill="${theme.c2}"/>
+            <circle cx="5" cy="-5" r="4" fill="${theme.c2}"/>
+            <circle cx="5" cy="5" r="4" fill="${theme.c2}"/>
+            <circle cx="-5" cy="5" r="4" fill="${theme.c2}"/>
+            <circle cx="0" cy="0" r="3" fill="${theme.c1}"/>
+          </g>
+          <path d="M28 28 L46 46" stroke="${theme.c2}" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="47" cy="47" r="2.8" fill="${theme.c3}"/>
+        </svg>
+      `;
+    }
+
     const pageNumbers = Object.keys(ALBUM_DATA).map(Number).sort((a, b) => a - b);
     const totalPages = pageNumbers.length;
     let currentIndex = 0;
 
     const coverScreen = document.getElementById("coverScreen");
     const albumScreen = document.getElementById("albumScreen");
+    const motifBanner = document.getElementById("motifBanner");
     const titleInput = document.getElementById("titleInput");
     const jumpSelect = document.getElementById("jumpSelect");
     const mediaStage = document.getElementById("mediaStage");
@@ -497,6 +745,31 @@
 
     function encodeRelPath(relPath) {
       return "./" + relPath.split("/").map(encodeURIComponent).join("/");
+    }
+
+    function applyPageDecoration(pageNum) {
+      const theme = THEMES[(pageNum - 1) % THEMES.length];
+      albumScreen.style.setProperty("--page-accent", theme.accent);
+      motifBanner.style.backgroundColor = theme.bannerBg;
+      motifBanner.style.borderColor = theme.bannerBorder;
+      motifBanner.innerHTML = buildBannerSVG(pageNum - 1, theme);
+      return theme;
+    }
+
+    function renderCornerOrnaments(pageNum, theme) {
+      const corners = [
+        { cls: "orn-tl", kind: pageNum - 1 },
+        { cls: "orn-tr", kind: pageNum },
+        { cls: "orn-bl", kind: pageNum + 1 },
+        { cls: "orn-br", kind: pageNum + 2 }
+      ];
+
+      corners.forEach(({ cls, kind }) => {
+        const div = document.createElement("div");
+        div.className = `page-ornament ${cls}`;
+        div.innerHTML = buildCornerSVG(kind, theme);
+        mediaStage.appendChild(div);
+      });
     }
 
     function initJumpSelect() {
@@ -514,7 +787,7 @@
       if (vid) vid.pause();
     }
 
-    function loadMedia(pageNum, item, candidates, pos) {
+    function loadMedia(pageNum, item, candidates, pos, theme) {
       if (pos >= candidates.length) {
         mediaStage.innerHTML = `
           <div class="missing-box">
@@ -522,6 +795,7 @@
             <code>${item.image}</code>
           </div>
         `;
+        renderCornerOrnaments(pageNum, theme);
         return;
       }
 
@@ -536,26 +810,28 @@
         video.controls = true;
         video.playsInline = true;
         video.loop = true;
-        video.onerror = () => loadMedia(pageNum, item, candidates, pos + 1);
+        video.onerror = () => loadMedia(pageNum, item, candidates, pos + 1, theme);
         mediaStage.appendChild(video);
       } else {
         const img = document.createElement("img");
         img.src = url;
         img.alt = item.title;
-        img.onerror = () => loadMedia(pageNum, item, candidates, pos + 1);
+        img.onerror = () => loadMedia(pageNum, item, candidates, pos + 1, theme);
         mediaStage.appendChild(img);
       }
+      renderCornerOrnaments(pageNum, theme);
     }
 
     function renderPage() {
       pauseCurrentVideo();
       const pageNum = pageNumbers[currentIndex];
       const item = ALBUM_DATA[pageNum];
+      const theme = applyPageDecoration(pageNum);
       titleInput.value = item.title;
       jumpSelect.value = currentIndex;
       pageCounter.textContent = `Trang ${pageNum} / ${totalPages}`;
       progressFill.style.width = `${(pageNum / totalPages) * 100}%`;
-      loadMedia(pageNum, item, [item.image, `media/${item.image}`], 0);
+      loadMedia(pageNum, item, [item.image, `media/${item.image}`], 0, theme);
     }
 
     function goPrev() {
